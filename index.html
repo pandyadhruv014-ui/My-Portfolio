@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhruv Pandya – Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEX BACKGROUND -->
+  <div id="hex-grid"></div>
+
+  <!-- HEADER -->
+  <header class="top container">
+    <div>
+      <div class="brand-name">DHRUV PANDYA</div>
+      <div class="brand-sub">Full Stack Developer • Tech Enthusiast</div>
+    </div>
+
+    <nav class="nav">
+      <a href="#start">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div>
+      <a id="cvDownload" class="btn small" href="#" download>Download CV</a>
+    </div>
+  </header>
+
+  <main class="container main-vertical">
+
+    <!-- HERO SECTION -->
+    <section id="start" class="panel hero">
+      <div class="hero-inner">
+
+        <!-- MAIN PORTRAIT -->
+        <div class="portrait-wrap">
+          <div class="landscape-card portrait-card not-revealed"
+               id="portraitCardMain"
+               data-src="portrait1.jpg">
+
+            <img src="portrait1.jpg" id="portraitMain" class="portrait-img">
+
+            <div class="portrait-overlay">Tap to reveal</div>
+          </div>
+
+          <p class="portrait-caption">Tap the photo to reveal</p>
+        </div>
+
+        <div class="right hero-text">
+          <h1 id="heroName">DHRUV PANDYA</h1>
+
+          <p id="heroBio" class="appear-loop">
+            Full-Stack Developer building interactive and modern web experiences.
+          </p>
+
+          <p class="meta appear-loop">
+            Skills: HTML, CSS, React, Node.js, Python, Figma
+          </p>
+
+          <div class="actions">
+            <a class="btn" href="#projects">View Project</a>
+            <a class="btn outline" href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="panel reveal">
+      <h2 class="appear-loop">About</h2>
+      <p class="appear-loop">
+        BCA TY – V.P. & R.P.T.P Science College.</p>
+        <p> Fresher passionate about full-stack development & UI/UX.
+      </p>
+    </section>
+
+    <!-- PROJECT -->
+    <section id="projects" class="panel reveal">
+      <h2 class="appear-loop">TripTrigger</h2>
+      <p class="appear-loop">
+        My Project TripTrigger is a travel planner with itinerary building & group expense management.</p>
+      <p>It allows users to create trips, add locations, organize tasks,</p>
+      <p>and calculate expenses including equal split and group contribution tracking.
+      </p>
+
+      <a class="btn" href="Project Definition.pdf" download>Download Project Description</a>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="panel reveal">
+      <h2 class="appear-loop">Contact</h2>
+
+      <p>Email: pandyadhruv014@gmail.com</p>
+      <p>Phone: +91 7874261723</p>
+      <p>Location: Khambhat, Anand, Gujarat</p>
+
+      <!-- SECOND PORTRAIT -->
+      <div class="landscape-card portrait-card small not-revealed"
+           id="portraitCardSmall"
+           data-src="portrait2.jpg">
+
+        <img src="portrait2.jpg" id="portraitSmall" class="portrait-img">
+        <div class="portrait-overlay">Tap to reveal</div>
+      </div>
+
+      <!-- SOCIAL ICONS -->
+      <div class="socials appear-loop">
+        <img src="github.png" class="icon">
+        <img src="instagram.png" class="icon">
+        <img src="linkdin.png" class="icon">
+        <img src="twitter.png" class="icon">
+      </div>
+    </section>
+
+    <footer class="panel footer">
+      © <span id="year"></span> Dhruv Pandya
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

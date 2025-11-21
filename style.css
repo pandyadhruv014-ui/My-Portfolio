@@ -1,0 +1,160 @@
+/* style.css — landscape card 1248x832 container, preserve original image size, sharp hex glow */
+
+:root{
+  --bg:#000;
+  --hex-size:40px;
+  --hex-gap:6px;
+  --hex-outline:#1f1f1f;
+  --glow-color:#ff2e2e;
+  --content-width:1200px;
+  --muted:#bfbfbf;
+}
+
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:#fff;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  -webkit-font-smoothing:antialiased;
+}
+.container{ max-width:var(--content-width); margin:0 auto; padding:22px; position:relative; z-index:6; }
+
+/* header */
+.top{ display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:9; position:relative; }
+.brand-name{ font-weight:800; font-size:16px; letter-spacing:0.6px; }
+.brand-sub{ color:rgba(255,255,255,0.6); font-size:12px; margin-top:4px; }
+.nav a{ margin-left:16px; color:rgba(255,255,255,0.95); text-decoration:none; font-weight:600; }
+
+/* hero layout */
+.main-vertical{ padding-top:12px; }
+.panel{ padding:64px 0; position:relative; z-index:6; }
+.hero .hero-inner{ display:flex; gap:40px; align-items:center; }
+.left{ width:520px; }   /* container width (landscape card sits inside) */
+.right{ flex:1; }
+
+/* hero name */
+#heroName{ font-size:72px; margin:0 0 12px 0; line-height:0.95; font-weight:900; letter-spacing:1px; text-transform:uppercase; }
+#heroBio{ color:var(--muted); margin:0 0 18px 0; font-size:16px; }
+
+/* LANDSCAPE CARD: specified dimensions via inline CSS variable --card-w/--card-h */
+.landscape-card{
+  --card-w:1248px;
+  --card-h:832px;
+  width: min(100%, var(--card-w));   /* respect container and viewport */
+  height: calc(var(--card-h) * (min(1, var(--card-w) / 1248)));
+  max-width: 100%;
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+  background: #0b0b0b;
+  display:block;
+}
+
+/* Use the image as blurred background filling the card (cover) — not the main image */
+.landscape-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: var(--bg-img);
+  background-size:cover;
+  background-position:center;
+  filter: blur(28px) brightness(0.55);
+  transform:scale(1.05);
+  z-index:1;
+}
+
+/* portrait image centered on top of the blurred background.
+   Preserve original image size: image displays at natural size unless larger than the card (then scaled down to fit) */
+.portrait-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* makes portrait visible and fills the landscape card */
+  transition: filter .3s ease, transform .3s ease;
+}
+
+
+/* ensure the image is centered within the card */
+.landscape-card {
+  position: relative;
+  width: 100%;
+  height: 400px; /* adjustable */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* overlay and shake */
+.portrait-overlay{
+  position:absolute;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:170px;
+  text-align:center;
+  z-index:3;
+  background:rgba(0,0,0,0.5);
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* placeholder caption */
+.portrait-caption{ color:var(--muted); font-size:13px; margin-top:8px; }
+
+/* subtle shake until reveal */
+@keyframes shakeSmall {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-50%, calc(-50% - 3px)) rotate(-0.25deg); }
+  50% { transform: translate(-50%, -50%) rotate(0.25deg); }
+  75% { transform: translate(-50%, calc(-50% - 2px)) rotate(-0.15deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+/* initial blurred + shaking state */
+.portrait-card.not-revealed .portrait-img{
+  filter: blur(6px) grayscale(0.06);
+  animation: shakeSmall 2.8s ease-in-out infinite;
+}
+
+/* revealed state: no blur, stop animation */
+.portrait-card.revealed .portrait-img{
+  filter: none;
+  animation: none;
+}
+
+/* hide overlay after reveal */
+.portrait-card.revealed .portrait-overlay{ display:none; }
+
+/* buttons */
+.btn{ display:inline-block; background:var(--glow-color); color:#fff; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:700; }
+.btn.outline{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:inherit }
+
+/* hex grid */
+#hex-grid{ position:fixed; inset:0; z-index:1; pointer-events:none; display:grid; gap:var(--hex-gap); background:var(--bg); }
+.hex{ width:var(--hex-size); height:calc(var(--hex-size) * 0.86); clip-path:polygon(25% 6.7%,75% 6.7%,100% 50%,75% 93.3%,25% 93.3%,0% 50%); background:var(--bg); border:2px solid var(--hex-outline); transition: border-color .08s linear, transform .08s ease; }
+.hex.active{ border-color: var(--glow-color); transform: scale(1.02); box-shadow: 0 0 0 2px var(--glow-color); }
+
+/* per-letter appear */
+.appear-wrapper{ display:inline-block; overflow:visible; }
+.appear-char{ display:inline-block; transform:translateY(18px); opacity:0; transition: all .45s cubic-bezier(.2,.9,.2,1); }
+.appear-char.in{ transform:none; opacity:1; }
+
+/* reveal on scroll */
+.reveal{ opacity:0; transform:translateY(18px); transition: all .7s cubic-bezier(.2,.9,.2,1); }
+.reveal.visible{ opacity:1; transform:none; }
+
+/* responsive: on small screens scale card to width but still respect original image scale up to fit */
+@media (max-width:980px){
+  .hero .hero-inner{ flex-direction:column; }
+  .left{ width:100%; }
+  .landscape-card{ --card-w:100%; height:320px; }
+  :root{ --hex-size:34px; }
+}
